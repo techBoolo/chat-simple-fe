@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import io from 'socket.io-client'
+import { useSelector, useDispatch } from 'react-redux'
+import { setClientCount } from './redux/reducers/chatSlice.js'
 import Header from './components/Header/'
 import Footer from './components/Footer/'
 import ChatForm from './components/ChatForm/'
@@ -12,7 +14,8 @@ const socket = io(socketio_server)
 
 const App = () => {
   const [ isConnected, setIsConnected ] = useState(socket.connected)
-  const [ clientCount, setClientCount ] = useState(0)
+  const { clientCount } = useSelector(state => state.chat)
+  const dispatch = useDispatch()
 
   useEffect(() => {
 
@@ -24,10 +27,10 @@ const App = () => {
     })
 
     socket.on('new connection', params => {
-      setClientCount(params.count)
+      dispatch(setClientCount(params.count))
     })
     socket.on('client left', ({ count }) => {
-      setClientCount(count)
+      dispatch(setClientCount(count))
     })
 
     // registered listeners must be cleanedup, to prevent multiple event listener
@@ -45,7 +48,6 @@ const App = () => {
     <CssBaseline />
     <Container maxWidth='xs' sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header />
-      <p>Client count: { clientCount }</p>
       <Info />
       <p style={{ flex: 1, overflowY: 'scroll'}}> Imperdiet arcu vitae ipsum. Duis dapibus, nisi non porttitor iaculis,
     ligula odio sollicitudin mauris, non luctus nunc massa a velit. Fusce ac
