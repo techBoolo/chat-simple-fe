@@ -3,10 +3,10 @@ import io from 'socket.io-client'
 import Header from './components/Header/'
 import Footer from './components/Footer/'
 import ChatForm from './components/ChatForm/'
+import Info from './components/Info/'
 
 import CssBaseline from '@mui/material/CssBaseline'
 import Container from '@mui/material/Container'
-import Typography from '@mui/material/Typography'
 const socketio_server = process.env.REACT_APP_SOCKETIO_SERVER_URL
 const socket = io(socketio_server)
 
@@ -46,6 +46,7 @@ const App = () => {
     <Container maxWidth='xs' sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header />
       <p>Client count: { clientCount }</p>
+      <Info />
       <p style={{ flex: 1, overflowY: 'scroll'}}> Imperdiet arcu vitae ipsum. Duis dapibus, nisi non porttitor iaculis,
     ligula odio sollicitudin mauris, non luctus nunc massa a velit. Fusce ac
     nisi. Integer volutpat elementum metus. Vivamus luctus ultricies diam.
