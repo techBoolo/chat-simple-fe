@@ -56,7 +56,7 @@ const App = () => {
     <CssBaseline />
     <Container maxWidth='xs' sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header />
-      <Info />
+      <Info socket={socket} />
       <Box sx={{ flex: 1, overflowY: 'scroll', border: '1px solid #ccc', pb: '1rem'  }}>
         { toPublic ? (
             <PublicConversation />

@@ -4,6 +4,7 @@ const initialState = {
   toPublic: true,
   clientCount: 0,
   publicConversation: [],
+  currentRoom: null
 }
 
 const chatSlice = createSlice({
@@ -18,9 +19,12 @@ const chatSlice = createSlice({
     },
     addPublicConversation: (state, action) => {
       state.publicConversation.push(action.payload)
-    }
+    },
+    setCurrentRoom: (state, action) => {
+      state.currentRoom = action.payload
+    },
   }
 })
 
-export const { setToPublic, setClientCount, addPublicConversation } = chatSlice.actions
+export const { setToPublic, setClientCount, addPublicConversation, setCurrentRoom } = chatSlice.actions
 export default chatSlice.reducer
