@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { addPublicConversation } from '../../redux/reducers/chatSlice.js'
+import { addPublicConversation, addPrivateConversation } from '../../redux/reducers/chatSlice.js'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
@@ -24,12 +24,16 @@ const ChatForm = ({ socket }) => {
         }
       })
     } else {
-      socket.emit('private-message', { message, room: currentRoom }, (err, data) => {
+      socket.emit('private-message-sent', { message, room: currentRoom }, (err, data) => {
         if(!err) {
-
+          dispatch(addPrivateConversation({ ...data, own: true }))
+        } else {
+          // dispatch notification to show user, to join a room
+          console.log(err.message);
         }
       })
     }
+    setMessage('')
   }
   return (
     <Stack>

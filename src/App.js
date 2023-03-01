@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import io from 'socket.io-client'
 import { useSelector, useDispatch } from 'react-redux'
-import { setClientCount, addPublicConversation } from './redux/reducers/chatSlice.js'
+import { setClientCount, addPublicConversation, addPrivateConversation } from './redux/reducers/chatSlice.js'
 import Header from './components/Header/'
 import Footer from './components/Footer/'
 import ChatForm from './components/ChatForm/'
 import Info from './components/Info/'
 import ScrollToBottom from './components/ScrollToBottom/'
 import PublicConversation from './components/PublicConversation/'
+import PrivateConversation from './components/PrivateConversation/'
 
 import CssBaseline from '@mui/material/CssBaseline'
 import Container from '@mui/material/Container'
@@ -17,7 +18,7 @@ const socket = io(socketio_server)
 
 const App = () => {
   const [ isConnected, setIsConnected ] = useState(socket.connected)
-  const { toPublic } = useSelector(state => state.chat)
+  const { toPublic, currentRoom } = useSelector(state => state.chat)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -38,6 +39,10 @@ const App = () => {
       data = { ...data, own: false }
       dispatch(addPublicConversation(data))
     })
+    socket.on('private-message-received', (data) => {
+      data = { ...data, own: false }
+      dispatch(addPrivateConversation(data))
+    })
 
     // registered listeners must be cleanedup, to prevent multiple event listener
     // registration, on the next rendering
@@ -47,6 +52,7 @@ const App = () => {
       socket.off('new connection')
       socket.off('client left')
       socket.off('public-message-received')
+      socket.off('private-message-received')
     }
   }, [])
 
@@ -61,7 +67,7 @@ const App = () => {
         { toPublic ? (
             <PublicConversation />
           ):(
-            <></>
+            <PrivateConversation />
           ) 
         }
         <ScrollToBottom />

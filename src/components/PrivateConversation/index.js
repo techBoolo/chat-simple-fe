@@ -4,13 +4,14 @@ import Stack from '@mui/material/Stack'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 
-const PublicConversation = (props) => {
-  const { publicConversation } = useSelector(state => state.chat)
+const PrivateConversation = (props) => {
+  const { currentRoom } = useSelector(state => state.chat)
+  const privateConversation = useSelector(state => state.chat.privateConversation.filter(con => con.room === currentRoom))
 
   return (
-    <Stack divider={<Divider flexItem light />} spacing={1}>
+    <Stack divider={<Divider />} spacing={1}>
       {
-        publicConversation.map(conversation => (
+        privateConversation.map(conversation => (
           <Stack key={conversation.id} sx={{
             textAlign: `${conversation.own ? 'left' : 'right'}`,
             alignItems: `${conversation.own ? 'start' : 'end'}`,
@@ -25,4 +26,4 @@ const PublicConversation = (props) => {
   );
 };
 
-export default PublicConversation
+export default PrivateConversation
