@@ -1,9 +1,11 @@
+import Typography from '@mui/material/Typography'
+
 const Header = (props) => {
 
   return (
-    <div>
-      header 
-    </div>
+    <Typography variant='h5' sx={{ p: 1, backgroundColor: '#ff9e9e85'}}>
+      Chat
+    </Typography>
   );
 };
 

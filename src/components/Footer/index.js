@@ -11,7 +11,8 @@ const Footer = (props) => {
         gap: '0.5rem',
         borderTop: '1px solid #ccc',
         marginTop: '0.5rem',
-        py: '0.5rem'
+        py: '0.5rem',
+        backgroundColor: '#ff9e9e85'
       }}
     >
       <Typography variant='text1'>&copy;</Typography>

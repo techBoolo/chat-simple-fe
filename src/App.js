@@ -60,7 +60,7 @@ const App = () => {
   return (
     <>
     <CssBaseline />
-    <Container maxWidth='xs' sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <Container maxWidth='xs' sx={{ height: '100vh', display: 'flex', flexDirection: 'column', border: '1px solid #ffd5d585' }}>
       <Header />
       <Info socket={socket} />
       <Box sx={{ flex: 1, overflowY: 'scroll', border: '1px solid #ccc', pb: '1rem'  }}>

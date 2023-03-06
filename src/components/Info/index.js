@@ -48,7 +48,7 @@ const Info = ({ socket }) => {
   }
 
   return (
-    <Stack sx={{ mb: '0.5rem'}}>
+    <Stack sx={{ mb: '0.5rem', backgroundColor: '#ffbcbc85', p: 1 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: '0.5rem' }}>
         <Stack>
           <Typography variant='caption'>Connected client(s): { clientCount }</Typography>
